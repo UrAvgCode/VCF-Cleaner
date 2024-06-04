@@ -27,7 +27,9 @@ std::vector<std::vector<std::string>> filter_vcf(const std::vector<std::vector<s
     std::vector<std::vector<std::string>> filtered_vcf;
 
     for (const auto &vcard: vcf) {
-        if(vcard.size() > 6) {
+        if(std::any_of(vcard.begin(), vcard.end(), [](auto line) {
+            return line.starts_with("TEL");
+        })) {
             filtered_vcf.push_back(vcard);
         }
     }
